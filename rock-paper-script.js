@@ -13,30 +13,48 @@ function playRound(playerSelection, computerSelection){
     playerSelection = playerSelection.toLowerCase();
 
     if (!(playerSelection === "rock") && !(playerSelection === "paper") && !(playerSelection === "scissors")){
+        round--;
         return "Please guess rock, paper, or scissors.";
     }
     else if (playerSelection === computerSelection){
+        round++;
+        tie++;
         return "Tie game. We both guessed " + playerSelection + ".";
     } 
     else if ((playerSelection === "rock") && (computerSelection === "scissors")){
+        round++;
+        win++;
         return "You win! " + playerSelection + " beats " + computerSelection + ".";
     } 
     else if ((playerSelection === "paper") && (computerSelection === "rock")){   
+        round++;
+        win++;
         return "You win! " + playerSelection + " beats " + computerSelection + ".";
     }
     else if ((playerSelection === "scissors") && (computerSelection === "paper")){
+        round++;
+        win++;
         return "You win! " + playerSelection + " beats " + computerSelection + ".";
     }
-    else {return "You lose! " + computerSelection + " beats " + playerSelection + "."};
+    else {
+        round++;
+        lose++;
+        return "You lose! " + computerSelection + " beats " + playerSelection + ".";
+    }
 }
 
 
 function game(){
-    for (let game = 0; game < 5; game++){
+    for (let game = round; game < 5; game++){
         const playerSelection = prompt("Please enter your Rock Paper Scissors choice: ");
         const computerSelection = getComputerChoice();
         alert(playRound(playerSelection,computerSelection));    
     }
+    alert("Final Score: " + win + " wins, " + lose + " losses, and " + tie + " tie games.")
 }
 
+let round = 0;
+let win = 0;
+let lose = 0;
+let tie = 0;
 game();
