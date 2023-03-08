@@ -12,11 +12,8 @@ function getComputerChoice () {
 function playRound(playerSelection, computerSelection){
     playerSelection = playerSelection.toLowerCase();
 
-    if (!(playerSelection === "rock") && !(playerSelection === "paper") && !(playerSelection === "scissors")){
-        round--;
-        return "Please guess rock, paper, or scissors.";
-    }
-    else if (playerSelection === computerSelection){
+ 
+    if (playerSelection === computerSelection){
         round++;
         tie++;
         return "Tie game. We both guessed " + playerSelection + ".";
@@ -47,6 +44,10 @@ function playRound(playerSelection, computerSelection){
 function game(){
     for (let game = round; game < 5; game++){
         const playerSelection = prompt("Please enter your Rock Paper Scissors choice: ");
+        if (!(playerSelection === "rock") && !(playerSelection === "paper") && !(playerSelection === "scissors")){
+            game--;
+            continue;
+        }
         const computerSelection = getComputerChoice();
         alert(playRound(playerSelection,computerSelection));    
     }
