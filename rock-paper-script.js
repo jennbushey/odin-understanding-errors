@@ -1,5 +1,25 @@
-const playerSelection = document.getElementById("myBtn")
-playerSelection.addEventListener("click",playRound);
+const btn1 = document.querySelector(".rock");
+const btn2 = document.querySelector(".paper");
+const btn3 = document.querySelector(".scissors");
+let playerSelection;
+
+btn1.addEventListener('click', function (e) {
+    playerSelection = "rock";
+    console.log(`I picked ${playerSelection}`);
+    playRound(playerSelection);
+});
+
+btn2.addEventListener('click', function (e) {
+    playerSelection = "paper";
+    console.log(`I picked ${playerSelection}`);
+    playRound(playerSelection);
+});
+
+btn3.addEventListener('click', function (e) {
+    playerSelection = "scissors";
+    console.log(`I picked ${playerSelection}`);
+    playRound(playerSelection);
+});
 
 function getComputerChoice() {
     let choice = Math.random(); // generates random number between 0 and 1
@@ -8,12 +28,12 @@ function getComputerChoice() {
     } else if (choice <= 2 / 3) {
         choice = "paper"; // paper if between 1/3 and 2/3
     } else { choice = "scissors" } // scissors if >2/3
+    console.log(`Computer chooses ${choice}`);
     return choice;
 };
 
-function playRound(playerSelection, computerSelection) {
-    computerSelection = getComputerChoice();
-    console.log(playerSelection,computerSelection);
+function playRound(playerSelection) {
+    let computerSelection = getComputerChoice();
 
     if (playerSelection === computerSelection) {
         //round++;
@@ -49,13 +69,14 @@ let lose = 0;
 let tie = 0;
 */
 
-    //for (let game = round; game < 1; game++){
-    //const playerSelection = prompt("Please enter your Rock Paper Scissors choice: ");
-    //if (!(playerSelection === "rock") && !(playerSelection === "paper") && !(playerSelection === "scissors")) {
-    //    game--;
-    //    continue;
-    //}
-    //const computerSelection = getComputerChoice();
-    //alert(playRound(playerSelection, computerSelection));
-    // }
-    //alert("Final Score: " + win + " wins, " + lose + " losses, and " + tie + " tie games.")
+//for (let game = round; game < 1; game++){
+//const playerSelection = prompt("Please enter your Rock Paper Scissors choice: ");
+//if (!(playerSelection === "rock") && !(playerSelection === "paper") && !(playerSelection === "scissors")) {
+//    game--;
+//    continue;
+//}
+//const computerSelection = getComputerChoice();
+//alert(playRound(playerSelection, computerSelection));
+// }
+//alert("Final Score: " + win + " wins, " + lose + " losses, and " + tie + " tie games.")
+
