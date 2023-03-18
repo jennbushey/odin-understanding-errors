@@ -43,7 +43,7 @@ function playRound(playerSelection) {
     let computerSelection = getComputerChoice();
     if ((win < 5) && (lose < 5)) {
         if (playerSelection === computerSelection) {
-            showResults(["Tie game.", win, lose]);
+            showResults(["Tie game.",  win, lose]);
             return;
         }
         else if ((playerSelection === "rock") && (computerSelection === "scissors")) {
