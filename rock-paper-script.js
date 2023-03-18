@@ -1,61 +1,96 @@
-function getComputerChoice () {
-    let choice = Math.random();
-    if (choice <= 1/3) {
-        choice = "rock";
-    } else if (choice <= 2/3) {
-        choice = "paper";
-    } else {choice = "scissors"}
+
+const btn1 = document.querySelector(".rock");
+const btn2 = document.querySelector(".paper");
+const btn3 = document.querySelector(".scissors");
+let playerSelection;
+let score;
+score = [];
+let win = 0;
+let lose = 0;
+let x;
+
+const container = document.querySelector('#rpsGame');
+const displayResult = document.createElement('h3');
+
+btn1.addEventListener('click', function (e) {
+    playerSelection = "rock";
+    playRound(playerSelection);
+});
+
+btn2.addEventListener('click', function (e) {
+    playerSelection = "paper";
+    playRound(playerSelection);
+});
+
+btn3.addEventListener('click', function (e) {
+    playerSelection = "scissors";
+    playRound(playerSelection);
+});
+
+
+function getComputerChoice() {
+    let choice = Math.random(); // generates random number between 0 and 1
+    if (choice <= 1 / 3) {
+        choice = "rock"; // rock if < 1/3
+    } else if (choice <= 2 / 3) {
+        choice = "paper"; // paper if between 1/3 and 2/3
+    } else { choice = "scissors" } // scissors if >2/3
+    console.log(`Computer chooses ${choice}`);
     return choice;
 };
 
-
-function playRound(playerSelection, computerSelection){
-    playerSelection = playerSelection.toLowerCase();
-
- 
-    if (playerSelection === computerSelection){
-        round++;
-        tie++;
-        return "Tie game. We both guessed " + playerSelection + ".";
-    } 
-    else if ((playerSelection === "rock") && (computerSelection === "scissors")){
-        round++;
-        win++;
-        return "You win! " + playerSelection + " beats " + computerSelection + ".";
-    } 
-    else if ((playerSelection === "paper") && (computerSelection === "rock")){   
-        round++;
-        win++;
-        return "You win! " + playerSelection + " beats " + computerSelection + ".";
-    }
-    else if ((playerSelection === "scissors") && (computerSelection === "paper")){
-        round++;
-        win++;
-        return "You win! " + playerSelection + " beats " + computerSelection + ".";
-    }
-    else {
-        round++;
-        lose++;
-        return "You lose! " + computerSelection + " beats " + playerSelection + ".";
-    }
-}
-
-
-function game(){
-    for (let game = round; game < 5; game++){
-        const playerSelection = prompt("Please enter your Rock Paper Scissors choice: ");
-        if (!(playerSelection === "rock") && !(playerSelection === "paper") && !(playerSelection === "scissors")){
-            game--;
-            continue;
+function playRound(playerSelection) {
+    let computerSelection = getComputerChoice();
+    if ((win < 5) && (lose < 5)) {
+        if (playerSelection === computerSelection) {
+            showResults(["Tie game.",  win, lose]);
+            return;
         }
-        const computerSelection = getComputerChoice();
-        alert(playRound(playerSelection,computerSelection));    
-    }
-    alert("Final Score: " + win + " wins, " + lose + " losses, and " + tie + " tie games.")
-}
+        else if ((playerSelection === "rock") && (computerSelection === "scissors")) {
+            win++;
+            showResults(["Tie game.", win, lose]);
+            return ["You win.", win, lose];
+        }
+        else if ((playerSelection === "paper") && (computerSelection === "rock")) {
+            win++;
+            showResults(["Tie game.", win, lose]);
+            return ["You win.", win, lose];
+        }
+        else if ((playerSelection === "scissors") && (computerSelection === "paper")) {
+            win++;
+            showResults(["Tie game.", win, lose]);
+            return ["You win.", win, lose];
+        }
+        else {
+            lose++;
+            showResults(["Tie game.", win, lose]);
+            return ["You lose.", win, lose];
+        }
 
-let round = 0;
-let win = 0;
-let lose = 0;
-let tie = 0;
-game();
+    } else if (win === 5) {
+        endGame();
+        return winner(`Player Wins! Final score ${win} : ${lose}`);
+    } else {
+        endGame();
+        return winner(`Computer Wins! Final score ${win} : ${lose}`);
+    }
+
+};
+
+function showResults(result) {
+    displayResult.classList.add('result');
+    displayResult.textContent = result[0] + " Score: " + result[1] + " : " + result[2];
+    rpsGame.appendChild(displayResult);
+};
+
+function winner(x) {
+    displayResult.classList.add('winner');
+    displayResult.textContent = x;
+    rpsGame.appendChild(displayResult);
+};
+
+function endGame() {
+    btn1.removeEventListener('click', function (e) { });
+    btn2.removeEventListener('click', function (e) { });
+    btn3.removeEventListener('click', function (e) { });
+};
